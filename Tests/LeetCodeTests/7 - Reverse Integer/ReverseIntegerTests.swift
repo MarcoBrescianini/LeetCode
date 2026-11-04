@@ -3,7 +3,7 @@ import Testing
 @testable import LeetCode
 
 @Suite
-struct Test {
+struct ReverseIntegerTests {
 
     @Test
     func positiveNumber() {
