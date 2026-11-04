@@ -50,34 +50,20 @@ struct RomanToInteger {
         var index = s.startIndex
         let endIndex = s.endIndex
         var number = 0
+        var prevChar: Character?
 
         while index < endIndex {
             let char = s[index]
+            let charValue = char.romanValue
 
-            switch char {
-                case "I", "X", "C":
-                    let nextIndex = s.index(after: index)
-
-                    guard nextIndex < endIndex else { fallthrough }
-
-                    let nextChar = s[nextIndex]
-                    switch nextChar {
-                        case "V" where char == "I": fallthrough
-                        case "X" where char == "I": fallthrough
-                        case "L" where char == "X": fallthrough
-                        case "C" where char == "X": fallthrough
-                        case "D" where char == "C": fallthrough
-                        case "M" where char == "C":
-                            number += nextChar.romanValue - char.romanValue
-                            index = s.index(index, offsetBy: 2)
-                        default:
-                            number += char.romanValue
-                            index = s.index(after: index)
-                    }
-                default:
-                    number += char.romanValue
-                    index = s.index(after: index)
+            if let prevCharValue = prevChar?.romanValue, prevCharValue < charValue {
+                number += charValue - (2 * prevCharValue)
+            } else {
+                number += charValue
             }
+
+            index = s.index(after: index)
+            prevChar = char
         }
 
         return number
