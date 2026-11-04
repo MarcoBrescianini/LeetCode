@@ -3,7 +3,7 @@ import Testing
 @testable import LeetCode
 
 @Suite
-struct Test {
+struct RomanToIntegerTests {
 
     let instance: RomanToInteger
 
